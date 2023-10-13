@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    </head>
+    <body class="mt-5">
+        <div class="text-center">
+            <div class="text-xl font-bold">TruckersMP Calais Traffic Checker</div>
+            <em>Made by @notlucapols, API to count is provided by <b><a href="https://truckersmp.com/">TruckersMP</a></b></em>
+        </div>
+        <div class="grid grid-cols-1 gap-2 m-auto p-2 justify-center mt-2">
+            <div style="width: 50vw;" class="p-1 rounded-xl col-span-2 justify-center justify-self-center mx-auto bg-blue-900 text-white text-center text-lg">
+                <b>Roads between Calais and Duisburg are <em>ALWAYS</em> busy.</b>
+            </div>
+            <div style="width: 50vw;" id="placesToCheckMost" class="rounded-xl col-span-2 justify-center justify-self-center mx-auto text-white text-center text-lg">
+            </div>                
+        </div>
+    </body>
+</html>
+
+<script>
+var meanings = {
+    "10": "having light traffic",
+    "20": "having moderate traffic, check the map.",
+    "30": "having somewhat  busy traffic, be aware for possible traffic of jams.",
+    "40": "having busy traffic,  be aware for possible traffic jams.",
+    "50": "having a traffic jam, consider another route",
+    "60": "having a traffic jam, consider another route",
+};
+
+var colorWarnings = {
+    "10": "bg-green-500",
+    "20": "bg-yellow-500",
+    "30": "bg-yellow-500",
+    "40": "bg-red-500",
+    "50": "bg-red-900",
+    "60": "bg-red-900",
+};
+
+
+        $(document).ready(function() {
+            getData();
+        });
+
+        async function getData() {
+            $.get("/api/roadsToCheck.json", function(placesToCheckMost) {
+                placesToCheckMost.forEach(function(place, index) {
+                    setTimeout(function() {
+                        $.get(place.url, function(CheckPlace) {
+                            var count = 0;
+                            $.each(CheckPlace.Data, function(j, data) {
+                                if (data) {
+                                    count++;
+                                }
+                            });
+                            console.log(count);
+                            count = Math.round(count / 10) * 10;
+                            var countNew = count;
+
+                            if (count > 60) {
+                                count = 60;
+                            }
+                            // add smalll image
+                            var newDiv = $("<div>", {
+                                class: "p-1 rounded-xl mt-1 col-span-2 justify-center justify-self-center mx-auto "+ colorWarnings[`${count}`] +" text-white text-center text-lg",
+                                text: place.name + " is " + meanings[`${count}`] + " (~ " + countNew + " players)"
+                            });
+                            var br = $("<br>");
+                            var b = $("<b>", {
+                                text: "Where is it located?"
+                            });
+
+                            newDiv.append(br);
+                            newDiv.append(b);
+                            
+                            var Image = $("<img>", {
+                                src: place.image,
+                                class: "rounded-xl col-span-2 justify-center justify-self-center mx-auto hover:cursor-pointer",
+                                style: "width: 300px;",
+                                onclick: "window.open('" + place.image + "', '_blank');"
+                            });
+
+                            newDiv.append(Image);
+
+                            if(count >= 20) {
+                                $("#placesToCheckMost").append(newDiv);
+                            }
+                        });
+                    }, index * 200);
+                });
+            });
+        }
+    </script>

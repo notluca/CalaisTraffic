@@ -1,0 +1,22 @@
+[
+    {
+        "url": "https://tracker.ets2map.com/v3/area?x1=-30154&y1=-3237&x2=-29145&y2=-3935&server=2",
+        "name": "A16 To Calais",
+        "image": "/img/A16 To Calais.png"
+    }, 
+    {
+        "url": "https://tracker.ets2map.com/v3/area?x1=-29305&y1=-3347&x2=-28296&y2=-4045&server=2",
+        "name": "A16 To Calais/Lille/Brussels",
+        "image": "/img/A16 To CalaisLilleBrussels.png"
+    },
+    {
+        "url": "https://tracker.ets2map.com/v3/area?x1=-23530&y1=-3916&x2=-19289&y2=-6851&server=2",
+        "name": "Intersection Brussels - Calais - Duisburg",
+        "image": "/img/Intersection Brussels - Calais - Duisburg.png"
+    },
+    {
+        "url": "https://tracker.ets2map.com/v3/area?x1=-13311&y1=-6660&x2=-11423&y2=-7966&server=2",
+        "name": "Intersection at Duisburg",
+        "image": "/img/Intersection at Duisburg.png"
+    }
+]

@@ -35,6 +35,7 @@ var meanings = {
     "40": "having busy traffic,  be aware for possible traffic jams.",
     "50": "having a traffic jam, consider another route",
     "60": "having a traffic jam, consider another route",
+    "90": "having a heavy traffic jam, avoid it as much as you can!"
 };
 
 var colorWarnings = {
@@ -42,8 +43,9 @@ var colorWarnings = {
     "20": "bg-yellow-500",
     "30": "bg-yellow-500",
     "40": "bg-red-500",
-    "50": "bg-red-900",
-    "60": "bg-red-900",
+    "50": "bg-red-700",
+    "60": "bg-red-800",
+    "90": "bg-red-900"
 };
 
 
@@ -66,7 +68,7 @@ var colorWarnings = {
                             count = Math.round(count / 10) * 10;
                             var countNew = count;
 
-                            if (count > 60) {
+                            if (count > 90) {
                                 count = 60;
                             }
                             // add smalll image
